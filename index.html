@@ -47,10 +47,7 @@
     background:linear-gradient(transparent,rgba(20,40,28,.65))}
   .hero .herobtns{position:absolute;left:0;right:0;bottom:6%;z-index:2;line-height:1.4}
   @media(max-width:600px){.hero .herobtns{bottom:14px}.hero .btn{padding:11px 22px;font-size:.9rem}}
-  .hero h1{font-size:clamp(2.4rem,6vw,4rem);text-shadow:0 2px 12px rgba(0,0,0,.4)}
-  .hero p{font-size:clamp(1.05rem,2.5vw,1.35rem);max-width:620px;margin:0 auto 26px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
-  .badge{display:inline-block;background:var(--gold);color:#fff;padding:6px 16px;border-radius:50px;
-    font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+
   .btn{display:inline-block;background:var(--gold-deep);color:#fff;text-decoration:none;font-weight:700;
     padding:14px 30px;border-radius:50px;font-size:1rem;border:0;cursor:pointer;transition:.2s;box-shadow:var(--shadow);
     min-height:44px}
@@ -73,11 +70,12 @@
   .prop-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
   @media(max-width:780px){.prop-grid{grid-template-columns:1fr;gap:28px}}
   .gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .gallery img{width:100%;height:135px;object-fit:cover;border-radius:12px;box-shadow:var(--shadow)}
+  .gallery img{width:100%;height:135px;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);
+    cursor:zoom-in;transition:transform .15s,box-shadow .15s}
+  .gallery img:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(31,61,42,.20)}
   .gallery img.lead{grid-column:1/3;height:250px}
   .superhost{display:inline-flex;align-items:center;gap:7px;background:#eef4ec;border:1px solid #d4e3d6;
     color:var(--green-dk);font-weight:600;font-size:.85rem;padding:6px 14px;border-radius:50px;margin-bottom:14px}
-  .editable{outline:2px dashed transparent}
   .stats{display:flex;gap:22px;flex-wrap:wrap;margin:18px 0}
   .stat{text-align:center}
   .stat b{display:block;font-size:1.6rem;color:var(--green);font-family:Georgia,serif}
@@ -119,17 +117,18 @@
   .cat h3.catname{text-align:center;color:var(--gold-deep);font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;margin:30px 0 16px}
 
   .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column}
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;overflow:hidden}
+  .card .thumb{width:calc(100% + 44px);height:165px;object-fit:cover;margin:-22px -22px 16px;
+    border-radius:var(--radius) var(--radius) 0 0;background:#e7e2d7;display:block}
   .card h4{font-family:Georgia,serif;font-size:1.2rem;color:var(--green-dk);margin:0 0 4px}
   .card .meta{font-size:.8rem;color:var(--gold-deep);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
   .card p.desc{font-size:.92rem;color:#4a4d44;margin:0 0 14px;flex:1}
   .card .info{font-size:.85rem;color:var(--muted);margin:2px 0}
   .card .info b{color:var(--ink)}
   .card .links{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-  .card .links a{font-size:.82rem;font-weight:600;text-decoration:none;padding:7px 14px;border-radius:50px}
+  .card .links a{font-size:.82rem;font-weight:600;text-decoration:none;padding:7px 14px;border-radius:50px;min-height:40px;display:inline-flex;align-items:center}
   .card .links a.dir{background:var(--green);color:#fff}
   .card .links a.web{background:var(--cream);color:var(--green-dk);border:1px solid #cfc8b8}
-  .card .links a{min-height:40px;display:inline-flex;align-items:center}
   .card .links a:hover{opacity:.88}
   .pricepill{display:inline-block;background:#eef4ec;color:var(--green);font-weight:700;font-size:.8rem;
     padding:3px 12px;border-radius:50px;margin-top:auto;align-self:flex-start;margin-bottom:10px}
@@ -172,6 +171,24 @@
     *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
       transition-duration:.001ms !important}
   }
+
+  /* ---- Photo lightbox ---- */
+  .lightbox{position:fixed;inset:0;background:rgba(18,28,22,.93);display:none;z-index:300;
+    align-items:center;justify-content:center;padding:20px}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:92vw;max-height:84vh;border-radius:10px;box-shadow:0 12px 44px rgba(0,0,0,.5)}
+  .lb-close,.lb-nav{position:absolute;background:rgba(255,255,255,.16);color:#fff;border:0;cursor:pointer;
+    width:50px;height:50px;border-radius:50%;font-size:1.7rem;line-height:1;display:flex;
+    align-items:center;justify-content:center;transition:background .15s}
+  .lb-close:hover,.lb-nav:hover{background:rgba(255,255,255,.32)}
+  .lb-close{top:16px;right:16px}
+  .lb-nav.prev{left:16px;top:50%;transform:translateY(-50%)}
+  .lb-nav.next{right:16px;top:50%;transform:translateY(-50%)}
+  .lb-counter{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-size:.9rem;letter-spacing:.5px}
+  @media(max-width:600px){
+    .lb-close,.lb-nav{width:44px;height:44px;font-size:1.4rem}
+    .lb-nav.prev{left:6px}.lb-nav.next{right:6px}
+  }
 </style>
 </head>
 <body>
@@ -197,7 +214,7 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <img class="banner" src="Hero%20Background%20Smoky%20Nest.png" alt="The Smoky Nest — Pigeon Forge, TN. Relax. Explore. Make Memories.">
+  <img class="banner" src="images/hero.jpg" alt="The Smoky Nest — Pigeon Forge, TN. Relax. Explore. Make Memories.">
   <div class="herobtns">
     <a href="#book" class="btn">Book Your Stay</a>
     <a href="#guide" class="btn outline">Explore the Area</a>
@@ -210,7 +227,7 @@
     <div class="section-head">
       <div class="eyebrow">Welcome Home</div>
       <h2>Your Retreat in the Smokies</h2>
-      <p>Comfort, easy flat access, and everything you need just minutes from Pigeon Forge's best.</p>
+      <p>Comfort, convenience, and everything you need just minutes from Pigeon Forge's best.</p>
     </div>
     <div class="prop-grid">
       <div class="gallery">
@@ -222,7 +239,7 @@
       </div>
       <div>
         <span class="superhost">★ Superhost · 4.94 · Top 5% of homes</span>
-        <p><b>New owners, same beloved cottage</b> — with 150+ five-star stays behind it. The Smoky Nest is a bright, fully stocked getaway with <b>two king suites, each with its own private ensuite bath</b>. Best of all: easy, flat access with <b>no steep, winding mountain roads</b> — just 3 minutes to the Parkway and minutes from the area's top attractions.</p>
+        <p><b>New owners, same beloved cottage</b> — with 150+ five-star stays behind it. The Smoky Nest is a bright, fully stocked getaway with <b>two king suites, each with its own private ensuite bath</b>. Best of all, you're just 3 minutes to the Parkway and minutes from the area's top attractions. (Please note: the driveway is a bit steep, and there are 3 small steps up into the house.)</p>
         <div class="stats">
           <div class="stat"><b>2</b><span>King Suites</span></div>
           <div class="stat"><b>2</b><span>Private Baths</span></div>
@@ -232,7 +249,7 @@
         <div class="amen">
           <span>🔥 Indoor Fireplace</span><span>📶 Fast Wi-Fi</span><span>🍳 Full Kitchen</span>
           <span>🧺 Washer &amp; Dryer</span><span>📺 Roku TVs</span><span>❄️ Central A/C</span>
-          <span>🚗 Driveway (2 cars)</span><span>🛣️ Flat, Easy Access</span><span>👶 Pack-n-Play &amp; High Chair</span>
+          <span>🚗 Driveway (2 cars)</span><span>🪜 3 Steps to Enter</span><span>👶 Pack-n-Play &amp; High Chair</span>
           <span>🎲 Board Games</span>
         </div>
         <p style="margin-top:18px"><a href="#book" class="btn green">Check Availability</a></p>
@@ -263,7 +280,10 @@
           <div><label for="f_name">Name</label><input id="f_name" name="name" autocomplete="name" required></div>
           <div><label for="f_guests">Guests</label><input id="f_guests" name="guests" type="number" min="1" value="2"></div>
         </div>
-        <label for="f_email">Email</label><input id="f_email" name="email" type="email" autocomplete="email" required>
+        <div class="row">
+          <div><label for="f_email">Email</label><input id="f_email" name="email" type="email" autocomplete="email" required></div>
+          <div><label for="f_phone">Phone</label><input id="f_phone" name="phone" type="tel" autocomplete="tel" required></div>
+        </div>
         <div class="row">
           <div><label for="f_in">Check-in</label><input id="f_in" name="checkin" type="date"></div>
           <div><label for="f_out">Check-out</label><input id="f_out" name="checkout" type="date"></div>
@@ -290,6 +310,7 @@
       <button class="tab active" id="tab-attractions" role="tab" aria-selected="true" aria-controls="attractions" data-cat="attractions">🎡 Attractions</button>
       <button class="tab" id="tab-dining" role="tab" aria-selected="false" aria-controls="dining" data-cat="dining">🍽️ Dining</button>
       <button class="tab" id="tab-outdoors" role="tab" aria-selected="false" aria-controls="outdoors" data-cat="outdoors">⛰️ Outdoors &amp; Nearby</button>
+      <button class="tab" id="tab-essentials" role="tab" aria-selected="false" aria-controls="essentials" data-cat="essentials">🧰 Essentials</button>
     </div>
 
     <!-- ATTRACTIONS -->
@@ -298,6 +319,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/dollywood.jpg" alt="Dollywood" loading="lazy">
           <h4>Dollywood</h4>
           <div class="meta">Theme Park · 5.7 mi</div>
           <p class="desc">The Smokies' iconic theme park — world-class coasters, live music, craft demos, and seasonal festivals. An easy full-day outing for all ages.</p>
@@ -310,6 +332,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/the-island.jpg" alt="The Island in Pigeon Forge" loading="lazy">
           <h4>The Island in Pigeon Forge</h4>
           <div class="meta">Entertainment · ~3 mi</div>
           <p class="desc">Free-to-stroll dining-and-shopping district anchored by the 200-ft Great Smoky Mountain Wheel, dancing fountains, rides, and ropes course.</p>
@@ -322,6 +345,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/the-track.jpg" alt="The Track Family Fun Park" loading="lazy">
           <h4>The Track Family Fun Park</h4>
           <div class="meta">Go-Karts &amp; Rides · 1.8 mi</div>
           <p class="desc">Multi-level go-kart tracks, bumper boats, kiddie rides, and an arcade — a classic Parkway family stop just up the road from the cottage.</p>
@@ -334,6 +358,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/crave-golf.jpg" alt="Crave Golf Club" loading="lazy">
           <h4>Crave Golf Club</h4>
           <div class="meta">Mini Golf · 2.6 mi</div>
           <p class="desc">Two dessert-themed mini-golf courses plus escape rooms and a rooftop. Fun rainy-day or evening activity close to home base.</p>
@@ -351,6 +376,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/alpine-coaster.jpg" alt="Smoky Mountain Alpine Coaster" loading="lazy">
           <h4>Smoky Mountain Alpine Coaster</h4>
           <div class="meta">Coaster · 1.3 mi — closest!</div>
           <p class="desc">Our nearest coaster and one of the longest downhill rides in the U.S. — over a mile of gravity-driven track through the forest, with rider-controlled brakes and speeds up to 27 mph. Open day and night.</p>
@@ -363,6 +389,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/rocky-top-coaster.jpg" alt="Rocky Top Mountain Coaster" loading="lazy">
           <h4>Rocky Top Mountain Coaster</h4>
           <div class="meta">Coaster · across from Dollywood</div>
           <p class="desc">Voted Pigeon Forge's #1 mountain coaster (2022–2025) and the longest in East Tennessee. Sprawls over 20 acres with tunnels, 360° turns, four uplifts, and speeds near 30 mph.</p>
@@ -375,6 +402,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/racing-coaster.jpg" alt="Pigeon Forge Racing Coaster" loading="lazy">
           <h4>Pigeon Forge Racing Coaster</h4>
           <div class="meta">Coaster · on the Parkway</div>
           <p class="desc">The world's only racing mountain coaster — dual side-by-side tracks let you race family and friends downhill at rider-controlled speeds up to 30 mph.</p>
@@ -387,6 +415,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/rowdy-bear.jpg" alt="Rowdy Bear's Mountain" loading="lazy">
           <h4>Rowdy Bear's Mountain</h4>
           <div class="meta">Coaster &amp; Glider · 2.8 mi</div>
           <p class="desc">Home of the Wild Stallion Mountain Coaster plus the area's first Alpine Mountain Glider — a dual side-by-side zip-style ride. Year-round snow tubing too. A close, action-packed stop.</p>
@@ -399,6 +428,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/goats-on-the-roof.jpg" alt="Goats on the Roof" loading="lazy">
           <h4>Goat Coaster at Goats on the Roof</h4>
           <div class="meta">Coaster · ~10 mi (toward Gatlinburg)</div>
           <p class="desc">A fun, family-friendly mountain coaster paired with a quirky roadside stop — real goats on the roof, gem mining, fudge, and a general store. Great for younger kids.</p>
@@ -416,6 +446,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/stampede.jpg" alt="Dolly Parton's Stampede" loading="lazy">
           <h4>Dolly Parton's Stampede</h4>
           <div class="meta">Dinner Show · 4 mi</div>
           <p class="desc">The Smokies' most famous dinner show — 32 horses, trick riders, aerialists, and comedy in a 35,000-sq-ft arena, plus a four-course feast.</p>
@@ -428,6 +459,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/hatfield-mccoy.jpg" alt="Hatfield &amp; McCoy Dinner Feud" loading="lazy">
           <h4>Hatfield &amp; McCoy Dinner Feud</h4>
           <div class="meta">Dinner Show · 3 mi</div>
           <p class="desc">All-you-can-eat Southern feast with diving hillbillies, dogs, stunts, and side-splitting feudin' comedy. A guest favorite for families.</p>
@@ -440,6 +472,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/pirates-voyage.jpg" alt="Pirates Voyage" loading="lazy">
           <h4>Pirates Voyage Dinner &amp; Show</h4>
           <div class="meta">Dinner Show · 1.9 mi</div>
           <p class="desc">Dolly's pirate-themed spectacular — mermaids, acrobatics, and full-rigged ships in an indoor lagoon, with a four-course feast. The closest dinner show to the cottage.</p>
@@ -457,6 +490,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/titanic.jpg" alt="Titanic Museum" loading="lazy">
           <h4>Titanic Museum Attraction</h4>
           <div class="meta">Museum · 2.9 mi</div>
           <p class="desc">Walk the grand staircase aboard a half-scale Titanic, touch a real iceberg, and explore 400+ artifacts. Great rainy-day pick.</p>
@@ -469,6 +503,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/wonderworks.jpg" alt="WonderWorks" loading="lazy">
           <h4>WonderWorks</h4>
           <div class="meta">Indoor Attraction · 3 mi</div>
           <p class="desc">The upside-down building on the Parkway — 100+ hands-on science exhibits, a ropes course, and a laser-tag arena.</p>
@@ -489,6 +524,7 @@
       <div class="cards">
 
         <div class="card fav">
+          <img class="thumb" src="images/fat-bear.jpg" alt="The Fat Bear Family Tavern" loading="lazy">
           <span class="favtag">★ Host Favorite</span>
           <h4>The Fat Bear Family Tavern</h4>
           <div class="meta">Family Tavern · ~2.5 mi</div>
@@ -503,6 +539,7 @@
         </div>
 
         <div class="card fav">
+          <img class="thumb" src="images/cinnamon-bread.jpg" alt="Cinnamon Bread Factory" loading="lazy">
           <span class="favtag">★ Host Favorite</span>
           <h4>Cinnamon Bread Factory</h4>
           <div class="meta">Bakery · Takeout · Sevierville</div>
@@ -522,6 +559,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/old-mill.jpg" alt="The Old Mill Restaurant" loading="lazy">
           <h4>The Old Mill Restaurant</h4>
           <div class="meta">Southern · 3.5 mi</div>
           <p class="desc">Hearty made-from-scratch meals beside a working 200-year-old grist mill. Famous for cinnamon-raisin French toast and stone-ground grits.</p>
@@ -534,8 +572,9 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/mamas-farmhouse.jpg" alt="Mama's Farmhouse" loading="lazy">
           <h4>Mama's Farmhouse</h4>
-          <div class="meta">Family-Style · 7 min</div>
+          <div class="meta">Family-Style · ~3 mi</div>
           <p class="desc">All-you-can-eat, passed-around-the-table Southern cooking. Buttermilk biscuits, fried chicken, and an outdoor play area for the kids.</p>
           <div class="info"><b>Where:</b> Pickel St, Pigeon Forge</div>
           <span class="pricepill">$$ · family-style</span>
@@ -546,8 +585,9 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/sunliner-diner.jpg" alt="Sunliner Diner" loading="lazy">
           <h4>Sunliner Diner</h4>
-          <div class="meta">Retro Diner · 8 min</div>
+          <div class="meta">Retro Diner · ~3 mi</div>
           <p class="desc">'50s-themed diner with convertible-booth seating, all-day breakfast, chicken &amp; waffles, milkshakes, and classic burgers.</p>
           <div class="info"><b>At:</b> The Island, Pigeon Forge</div>
           <span class="pricepill">$$ · all-day breakfast</span>
@@ -563,8 +603,9 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/bennetts-bbq.jpg" alt="Bennett's Pit Bar-B-Que" loading="lazy">
           <h4>Bennett's Pit Bar-B-Que</h4>
-          <div class="meta">BBQ · 6 min</div>
+          <div class="meta">BBQ · ~3 mi</div>
           <p class="desc">Locally owned 30+ years. Hickory-smoked ribs, pulled pork, and brisket basted in house sauce — plus an all-you-can-eat breakfast bar.</p>
           <div class="info"><b>On:</b> The Parkway, Pigeon Forge</div>
           <span class="pricepill">$$ · BBQ</span>
@@ -575,8 +616,9 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/local-goat.jpg" alt="Local Goat" loading="lazy">
           <h4>Local Goat</h4>
-          <div class="meta">New American · 8 min</div>
+          <div class="meta">New American · ~3 mi</div>
           <p class="desc">Scratch kitchen with fresh, locally sourced plates, craft burgers, and a big bar. A step up for a nicer night out on the Parkway.</p>
           <div class="info"><b>At:</b> The Island area, Pigeon Forge</div>
           <span class="pricepill">$$–$$$ · American</span>
@@ -587,14 +629,16 @@
         </div>
 
         <div class="card">
-          <h4>Huck Finn's Catfish</h4>
-          <div class="meta">Seafood/Southern · 7 min</div>
-          <p class="desc">Award-winning all-you-can-eat catfish and fried chicken with bottomless hushpuppies and scratch-made sides. A casual family staple.</p>
-          <div class="info"><b>On:</b> The Parkway, Pigeon Forge</div>
-          <span class="pricepill">$$ · all-you-can-eat</span>
+          <img class="thumb" src="images/pucketts.jpg" alt="Puckett's" loading="lazy">
+          <h4>Puckett's</h4>
+          <div class="meta">Southern &amp; BBQ · ~3.5 mi</div>
+          <p class="desc">A beloved Tennessee institution serving cherry-wood-smoked BBQ, fried chicken, pimento cheese bites, scratch-made sides, and famous cobblers — with live music on weekend nights.</p>
+          <div class="info"><b>Where:</b> 2480 Parkway, Pigeon Forge</div>
+          <div class="info"><b>Good to know:</b> Live music Fri &amp; Sat, 7–8:30pm</div>
+          <span class="pricepill">$$ · Southern comfort &amp; BBQ</span>
           <div class="links">
-            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=Huck+Finns+Catfish+Pigeon+Forge+TN" target="_blank" rel="noopener">Directions</a>
-            <a class="web" href="https://huckfinnscatfish.com/" target="_blank" rel="noopener">Website</a>
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=Pucketts+Restaurant+2480+Parkway+Pigeon+Forge+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.puckettsrestaurant.com/pigeon-forge" target="_blank" rel="noopener">Website</a>
           </div>
         </div>
 
@@ -607,6 +651,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/cades-cove.jpg" alt="Cades Cove" loading="lazy">
           <h4>Cades Cove Loop</h4>
           <div class="meta">Scenic Drive · ~29 mi</div>
           <p class="desc">An 11-mile one-way loop through open valley framed by mountains — historic cabins, churches, and the area's best wildlife viewing (deer, bears, turkeys).</p>
@@ -619,6 +664,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/smokies-park.jpg" alt="Great Smoky Mountains National Park" loading="lazy">
           <h4>Smoky Mtns Parking Tag</h4>
           <div class="meta">Good to Know · —</div>
           <p class="desc">There's no entrance fee to the park, but you need a parking tag to stop for 15+ minutes. Grab one online or at a visitor center before you hike.</p>
@@ -635,6 +681,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/anakeesta.jpg" alt="Anakeesta" loading="lazy">
           <h4>Anakeesta</h4>
           <div class="meta">Mountain Park · 10 mi</div>
           <p class="desc">Ride a chondola up to a mountaintop village: treetop skywalk, gem mining, ziplines, the Rail Runner coaster, dining, and sweeping Smoky views.</p>
@@ -647,6 +694,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/skybridge.jpg" alt="Gatlinburg SkyBridge" loading="lazy">
           <h4>Gatlinburg SkyPark &amp; SkyBridge</h4>
           <div class="meta">Observation · 10.7 mi</div>
           <p class="desc">Chairlift to the SkyDeck and the longest pedestrian suspension bridge in North America — with a heart-pounding glass-floor center panel.</p>
@@ -659,6 +707,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/ober-mountain.jpg" alt="Ober Mountain" loading="lazy">
           <h4>Ober Mountain</h4>
           <div class="meta">Year-round Resort · 13 mi</div>
           <p class="desc">Aerial tram to a mountaintop of fun — snow tubing and skiing in winter; alpine slide, coaster, ice skating, and ziplines year-round.</p>
@@ -676,6 +725,7 @@
       <div class="cards">
 
         <div class="card">
+          <img class="thumb" src="images/tanger-outlets.jpg" alt="Tanger Outlets" loading="lazy">
           <h4>Tanger Outlets Sevierville</h4>
           <div class="meta">Shopping · 3.8 mi</div>
           <p class="desc">100+ outlet stores just off the Parkway — name brands at outlet prices, an easy rainy-day or rest-day option between adventures.</p>
@@ -688,6 +738,7 @@
         </div>
 
         <div class="card">
+          <img class="thumb" src="images/nascar-speedpark.jpg" alt="NASCAR SpeedPark" loading="lazy">
           <h4>NASCAR SpeedPark</h4>
           <div class="meta">Go-Karts · ~3.5 mi</div>
           <p class="desc">Family racing complex with multiple go-kart tracks, mini golf, kiddie rides, and an arcade. Right next to Tanger Outlets.</p>
@@ -696,6 +747,115 @@
           <div class="links">
             <a class="dir" href="https://www.google.com/maps/search/?api=1&query=NASCAR+SpeedPark+Sevierville+TN" target="_blank" rel="noopener">Directions</a>
             <a class="web" href="https://visitsevierville.com/NASCARSpeedParkFunForAll.aspx" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ESSENTIALS -->
+    <div class="cat" id="essentials" role="tabpanel" aria-labelledby="tab-essentials" tabindex="0">
+      <h3 class="catname">Groceries &amp; Shopping</h3>
+      <div class="cards">
+
+        <div class="card">
+          <img class="thumb" src="images/food-city.jpg" alt="Food City" loading="lazy">
+          <h4>Food City</h4>
+          <div class="meta">Grocery · ~2.5 mi</div>
+          <p class="desc">Full-service grocery on Teaster Lane — produce, deli, bakery, and an in-store pharmacy. The closest big supermarket for stocking the cottage kitchen.</p>
+          <div class="info"><b>Where:</b> 3064 Teaster Ln, Pigeon Forge</div>
+          <span class="pricepill">Groceries · deli · pharmacy</span>
+          <div class="links">
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=Food+City+Teaster+Lane+Pigeon+Forge+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.foodcity.com/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="images/kroger.jpg" alt="Kroger" loading="lazy">
+          <h4>Kroger</h4>
+          <div class="meta">Grocery · ~1.5 mi</div>
+          <p class="desc">Another well-stocked grocery just off the Parkway on Wears Valley Road, with a pharmacy and fuel center.</p>
+          <div class="info"><b>Where:</b> 220 Wears Valley Rd, Pigeon Forge</div>
+          <span class="pricepill">Groceries · fuel · pharmacy</span>
+          <div class="links">
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=Kroger+Wears+Valley+Road+Pigeon+Forge+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.kroger.com/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="images/walmart.jpg" alt="Walmart Supercenter" loading="lazy">
+          <h4>Walmart Supercenter</h4>
+          <div class="meta">Supercenter · ~5 mi (Sevierville)</div>
+          <p class="desc">One-stop Supercenter for groceries, household items, and a pharmacy — about 10–15 minutes north in Sevierville.</p>
+          <div class="info"><b>Where:</b> 1414 Parkway, Sevierville</div>
+          <span class="pricepill">Groceries · everything else</span>
+          <div class="links">
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=Walmart+Supercenter+1414+Parkway+Sevierville+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.walmart.com/store/578" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="catname">Pharmacies</h3>
+      <div class="cards">
+
+        <div class="card">
+          <img class="thumb" src="images/walgreens.jpg" alt="Walgreens" loading="lazy">
+          <h4>Walgreens</h4>
+          <div class="meta">Pharmacy · ~3 mi</div>
+          <p class="desc">Pharmacy plus convenience essentials, right on the Parkway.</p>
+          <div class="info"><b>Where:</b> 3071 Parkway, Pigeon Forge</div>
+          <span class="pricepill">Rx · OTC · essentials</span>
+          <div class="links">
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=Walgreens+3071+Parkway+Pigeon+Forge+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.walgreens.com/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="images/cvs.jpg" alt="CVS Pharmacy" loading="lazy">
+          <h4>CVS Pharmacy</h4>
+          <div class="meta">Pharmacy · ~2.5 mi</div>
+          <p class="desc">Pharmacy, over-the-counter meds, and sundries near Teaster Lane.</p>
+          <div class="info"><b>Where:</b> 2415 Parkway, Pigeon Forge · (865) 429-6410</div>
+          <span class="pricepill">Rx · OTC · sundries</span>
+          <div class="links">
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=CVS+Pharmacy+2415+Parkway+Pigeon+Forge+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.cvs.com/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="catname">Medical Care</h3>
+      <div class="cards">
+
+        <div class="card">
+          <img class="thumb" src="images/afc-urgent-care.jpg" alt="AFC Urgent Care" loading="lazy">
+          <h4>AFC Urgent Care</h4>
+          <div class="meta">Urgent Care · Sevierville</div>
+          <p class="desc">Walk-in clinic for minor illnesses and injuries — no appointment needed. Open Mon–Fri 8am–8pm, Sat–Sun 8am–5pm.</p>
+          <div class="info"><b>Where:</b> 713 Winfield Dunn Pkwy, Sevierville · (865) 429-9110</div>
+          <span class="pricepill">Walk-in · no appointment</span>
+          <div class="links">
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=AFC+Urgent+Care+Sevierville+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.afcurgentcare.com/sevierville-tn/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="thumb" src="images/leconte.jpg" alt="LeConte Medical Center" loading="lazy">
+          <h4>LeConte Medical Center</h4>
+          <div class="meta">Hospital &amp; ER · Sevierville</div>
+          <p class="desc">The area's full-service hospital with a 24/7 emergency room. <b>For any emergency, always call 911 first.</b></p>
+          <div class="info"><b>Where:</b> 742 Middle Creek Rd, Sevierville · (865) 446-7000</div>
+          <span class="pricepill">24/7 Emergency Room</span>
+          <div class="links">
+            <a class="dir" href="https://www.google.com/maps/search/?api=1&query=LeConte+Medical+Center+Sevierville+TN" target="_blank" rel="noopener">Directions</a>
+            <a class="web" href="https://www.lecontemedicalcenter.com/" target="_blank" rel="noopener">Website</a>
           </div>
         </div>
 
@@ -712,6 +872,15 @@
   <p>Pigeon Forge, Tennessee &nbsp;·&nbsp; <a href="#book">Book Direct</a></p>
   <p class="disc">Prices and hours are approximate and change seasonally — please confirm on each attraction's official website before you go. The Smoky Nest is an independent rental and is not affiliated with the attractions listed in this guide.</p>
 </footer>
+
+<!-- Photo lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Property photo viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close photo viewer">&times;</button>
+  <button class="lb-nav prev" id="lbPrev" aria-label="Previous photo">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav next" id="lbNext" aria-label="Next photo">&#8250;</button>
+  <div class="lb-counter" id="lbCounter" aria-live="polite"></div>
+</div>
 
 <script>
   // Mobile nav toggle / close (keeps aria-expanded in sync)
@@ -735,7 +904,6 @@
   }
   tabEls.forEach(function(t,i){
     t.addEventListener('click',function(){ selectTab(t); });
-    // Left/Right arrow navigation between tabs
     t.addEventListener('keydown',function(e){
       var n=null;
       if(e.key==='ArrowRight') n=tabEls[(i+1)%tabEls.length];
@@ -756,6 +924,7 @@
     var data=new URLSearchParams();
     data.append('name', document.getElementById('f_name').value);
     data.append('email', document.getElementById('f_email').value);
+    data.append('phone', document.getElementById('f_phone').value);
     data.append('guests', document.getElementById('f_guests').value);
     data.append('checkin', ci);
     data.append('checkout', co);
@@ -780,6 +949,52 @@
     });
     return false;
   }
+
+  // Photo lightbox (click/tap to enlarge property photos; arrows + Esc; keyboard accessible)
+  (function(){
+    var imgs=Array.prototype.slice.call(document.querySelectorAll('.gallery img'));
+    if(!imgs.length) return;
+    var lb=document.getElementById('lightbox'),
+        lbImg=document.getElementById('lbImg'),
+        lbCounter=document.getElementById('lbCounter'),
+        idx=0, lastFocus=null;
+    function bigSrc(src){ return src.replace(/im_w=\d+/, 'im_w=1440'); }
+    function show(i){
+      idx=(i+imgs.length)%imgs.length;
+      var t=imgs[idx];
+      lbImg.src=bigSrc(t.getAttribute('src'));
+      lbImg.alt=t.alt||'The Smoky Nest photo';
+      lbCounter.textContent=(idx+1)+' / '+imgs.length;
+    }
+    function openLb(i){
+      lastFocus=document.activeElement; show(i);
+      lb.classList.add('open'); document.body.style.overflow='hidden';
+      document.getElementById('lbClose').focus();
+    }
+    function closeLb(){
+      lb.classList.remove('open'); document.body.style.overflow='';
+      if(lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    imgs.forEach(function(im,i){
+      im.setAttribute('tabindex','0');
+      im.setAttribute('role','button');
+      im.setAttribute('aria-label',(im.alt||'Property photo')+' — view larger');
+      im.addEventListener('click',function(){ openLb(i); });
+      im.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openLb(i); }
+      });
+    });
+    document.getElementById('lbClose').addEventListener('click',closeLb);
+    document.getElementById('lbPrev').addEventListener('click',function(){ show(idx-1); });
+    document.getElementById('lbNext').addEventListener('click',function(){ show(idx+1); });
+    lb.addEventListener('click',function(e){ if(e.target===lb) closeLb(); });
+    document.addEventListener('keydown',function(e){
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') closeLb();
+      else if(e.key==='ArrowLeft') show(idx-1);
+      else if(e.key==='ArrowRight') show(idx+1);
+    });
+  })();
 </script>
 </body>
 </html>
