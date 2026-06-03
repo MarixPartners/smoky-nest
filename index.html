@@ -8,14 +8,16 @@
 <style>
   :root{
     --green:#2f5d3f; --green-dk:#1f3d2a; --gold:#c98a3a; --gold-lt:#e0a458;
-    --cream:#f7f3ec; --ink:#23241f; --muted:#6b6f66; --card:#ffffff;
+    --gold-deep:#9a6011; /* AA-contrast gold for text/buttons on light backgrounds */
+    --cream:#f7f3ec; --ink:#23241f; --muted:#5f635b; --card:#ffffff;
     --shadow:0 6px 24px rgba(31,61,42,.10); --radius:16px;
     --max:1080px;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+    color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;-webkit-tap-highlight-color:rgba(31,61,42,.15)}
   h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 .4em}
   a{color:var(--green)}
   img{max-width:100%;display:block}
@@ -49,9 +51,10 @@
   .hero p{font-size:clamp(1.05rem,2.5vw,1.35rem);max-width:620px;margin:0 auto 26px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
   .badge{display:inline-block;background:var(--gold);color:#fff;padding:6px 16px;border-radius:50px;
     font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:18px}
-  .btn{display:inline-block;background:var(--gold);color:#fff;text-decoration:none;font-weight:700;
-    padding:14px 30px;border-radius:50px;font-size:1rem;border:0;cursor:pointer;transition:.2s;box-shadow:var(--shadow)}
-  .btn:hover{background:var(--gold-lt);transform:translateY(-2px)}
+  .btn{display:inline-block;background:var(--gold-deep);color:#fff;text-decoration:none;font-weight:700;
+    padding:14px 30px;border-radius:50px;font-size:1rem;border:0;cursor:pointer;transition:.2s;box-shadow:var(--shadow);
+    min-height:44px}
+  .btn:hover{background:#80500d;transform:translateY(-2px)}
   .btn.outline{background:transparent;border:2px solid #fff;color:#fff}
   .btn.outline:hover{background:#fff;color:var(--green-dk)}
   .btn.green{background:var(--green)}
@@ -62,7 +65,7 @@
   section{padding:64px 0}
   .section-head{text-align:center;max-width:680px;margin:0 auto 40px}
   .section-head h2{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--green-dk)}
-  .section-head .eyebrow{color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.8rem}
+  .section-head .eyebrow{color:var(--gold-deep);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.8rem}
   .section-head p{color:var(--muted);font-size:1.05rem}
   .alt{background:#fff}
 
@@ -97,12 +100,13 @@
   form.inquiry{background:#fff;color:var(--ink);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
   form.inquiry h3{color:var(--green-dk)}
   form.inquiry label{display:block;font-size:.85rem;font-weight:600;margin:12px 0 4px;color:var(--ink)}
-  form.inquiry input,form.inquiry textarea{width:100%;padding:11px 13px;border:1px solid #d9d4c8;border-radius:9px;
-    font-size:.95rem;font-family:inherit;background:var(--cream)}
+  form.inquiry input,form.inquiry textarea{width:100%;padding:12px 13px;border:1px solid #b8b2a3;border-radius:9px;
+    font-size:16px;font-family:inherit;background:var(--cream);color:var(--ink)}
   form.inquiry .row{display:flex;gap:12px}
   form.inquiry .row>div{flex:1}
   form.inquiry button{margin-top:18px;width:100%}
   .note{font-size:.78rem;color:var(--muted);margin-top:10px;text-align:center}
+  .formstatus{font-size:.92rem;margin-top:14px;text-align:center;font-weight:600;line-height:1.4}
 
   /* GUIDE TABS */
   .tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:34px}
@@ -112,40 +116,75 @@
   .cat{display:none}
   .cat.active{display:block;animation:fade .35s ease}
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-  .cat h3.catname{text-align:center;color:var(--gold);font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;margin:30px 0 16px}
+  .cat h3.catname{text-align:center;color:var(--gold-deep);font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;margin:30px 0 16px}
 
   .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
   .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column}
   .card h4{font-family:Georgia,serif;font-size:1.2rem;color:var(--green-dk);margin:0 0 4px}
-  .card .meta{font-size:.8rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+  .card .meta{font-size:.8rem;color:var(--gold-deep);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
   .card p.desc{font-size:.92rem;color:#4a4d44;margin:0 0 14px;flex:1}
   .card .info{font-size:.85rem;color:var(--muted);margin:2px 0}
   .card .info b{color:var(--ink)}
   .card .links{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
   .card .links a{font-size:.82rem;font-weight:600;text-decoration:none;padding:7px 14px;border-radius:50px}
   .card .links a.dir{background:var(--green);color:#fff}
-  .card .links a.web{background:var(--cream);color:var(--green-dk);border:1px solid #e2dccd}
+  .card .links a.web{background:var(--cream);color:var(--green-dk);border:1px solid #cfc8b8}
+  .card .links a{min-height:40px;display:inline-flex;align-items:center}
   .card .links a:hover{opacity:.88}
   .pricepill{display:inline-block;background:#eef4ec;color:var(--green);font-weight:700;font-size:.8rem;
     padding:3px 12px;border-radius:50px;margin-top:auto;align-self:flex-start;margin-bottom:10px}
   .card.fav{border:2px solid var(--gold)}
-  .favtag{display:inline-block;background:var(--gold);color:#fff;font-size:.72rem;font-weight:700;
+  .favtag{display:inline-block;background:var(--gold-deep);color:#fff;font-size:.72rem;font-weight:700;
     letter-spacing:.6px;text-transform:uppercase;padding:3px 12px;border-radius:50px;margin-bottom:8px;align-self:flex-start}
 
   footer{background:var(--green-dk);color:#cfe0d3;text-align:center;padding:40px 20px;font-size:.9rem}
   footer a{color:var(--gold-lt)}
   footer .brand{display:inline-block;margin-bottom:8px}
-  .disc{font-size:.75rem;color:#8fa896;max-width:680px;margin:14px auto 0;line-height:1.5}
+  .disc{font-size:.78rem;color:#b3c4b9;max-width:680px;margin:14px auto 0;line-height:1.5}
+
+  /* ---- Accessibility (WCAG AA) ---- */
+  .skip{position:absolute;left:8px;top:-56px;background:var(--green-dk);color:#fff;padding:12px 18px;
+    border-radius:0 0 10px 10px;z-index:200;text-decoration:none;font-weight:700;transition:top .15s}
+  .skip:focus{top:0}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  :where(a,button,input,textarea,select,[tabindex],.tab):focus-visible{
+    outline:3px solid var(--gold-deep);outline-offset:2px;border-radius:6px}
+  .nav a:focus-visible,.ota a:focus-visible,.btn.outline:focus-visible,.hero a:focus-visible,footer a:focus-visible{
+    outline-color:#fff}
+  :where(main,section,footer){scroll-margin-top:74px}
+
+  /* ---- Mobile-first sizing ---- */
+  @media(max-width:600px){
+    section{padding:44px 0}
+    .wrap{padding:0 16px}
+    .section-head{margin-bottom:26px}
+    .stats{gap:14px}
+    .stat b{font-size:1.4rem}
+    .tab{padding:11px 18px}
+    .card .links a{padding:10px 16px}
+    .cards{grid-template-columns:1fr}
+    form.inquiry{padding:20px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+      transition-duration:.001ms !important}
+  }
 </style>
 </head>
 <body>
+
+<a class="skip" href="#main">Skip to main content</a>
+<h1 class="sr-only">The Smoky Nest — Pigeon Forge, TN cabin rental and local area guide</h1>
 
 <!-- NAV -->
 <header class="nav">
   <div class="wrap">
     <a href="#top" class="brand">The Smoky <span>Nest</span></a>
-    <button class="menubtn" aria-label="Menu" onclick="document.getElementById('nl').classList.toggle('open')">&#9776;</button>
-    <nav class="navlinks" id="nl">
+    <button class="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="nl" onclick="toggleNav(this)">&#9776;</button>
+    <nav class="navlinks" id="nl" aria-label="Primary">
       <a href="#stay" onclick="closeNav()">The Cabin</a>
       <a href="#book" onclick="closeNav()">Book</a>
       <a href="#guide" onclick="closeNav()">Local Guide</a>
@@ -153,6 +192,8 @@
     </nav>
   </div>
 </header>
+
+<main id="main">
 
 <!-- HERO -->
 <section class="hero" id="top">
@@ -210,29 +251,27 @@
     </div>
     <div class="book-grid">
       <div>
-        <h3 style="color:#fff;font-family:Georgia,serif">Find us on your favorite platform</h3>
+        <h3 style="color:#fff;font-family:Georgia,serif">Prefer to book on Airbnb?</h3>
         <div class="ota">
           <a href="https://www.airbnb.com/rooms/1553958627700606401" target="_blank" rel="noopener">Airbnb · ★4.94 Superhost <span class="arrow">→</span></a>
-          <!-- EDIT: paste your real VRBO & Booking.com URLs below -->
-          <a href="#" target="_blank" rel="noopener">VRBO <span class="arrow">→</span></a>
-          <a href="#" target="_blank" rel="noopener">Booking.com <span class="arrow">→</span></a>
         </div>
         <p style="color:#cfe0d3;font-size:.9rem;margin-top:18px">Check-in after 4:00 PM · Checkout by 11:00 AM · Sleeps up to 5.<br>Prefer to talk first? Use the form and we'll get right back to you with availability and our best direct rate.</p>
       </div>
-      <form class="inquiry" onsubmit="return sendInquiry(event)">
+      <form class="inquiry" onsubmit="return sendInquiry(event)" aria-label="Request to book The Smoky Nest">
         <h3>Request to Book</h3>
         <div class="row">
-          <div><label>Name</label><input id="f_name" required></div>
-          <div><label>Guests</label><input id="f_guests" type="number" min="1" value="2"></div>
+          <div><label for="f_name">Name</label><input id="f_name" name="name" autocomplete="name" required></div>
+          <div><label for="f_guests">Guests</label><input id="f_guests" name="guests" type="number" min="1" value="2"></div>
         </div>
-        <label>Email</label><input id="f_email" type="email" required>
+        <label for="f_email">Email</label><input id="f_email" name="email" type="email" autocomplete="email" required>
         <div class="row">
-          <div><label>Check-in</label><input id="f_in" type="date"></div>
-          <div><label>Check-out</label><input id="f_out" type="date"></div>
+          <div><label for="f_in">Check-in</label><input id="f_in" name="checkin" type="date"></div>
+          <div><label for="f_out">Check-out</label><input id="f_out" name="checkout" type="date"></div>
         </div>
-        <label>Message</label><textarea id="f_msg" rows="3" placeholder="Tell us a little about your trip..."></textarea>
+        <label for="f_msg">Message</label><textarea id="f_msg" name="message" rows="3" placeholder="Tell us a little about your trip..."></textarea>
         <button type="submit" class="btn">Send Request</button>
-        <div class="note">Opens your email app addressed to us. No payment required to inquire.</div>
+        <div class="note">We typically reply within a few hours. No payment required to inquire.</div>
+        <div class="formstatus" id="formStatus" role="status" aria-live="polite"></div>
       </form>
     </div>
   </div>
@@ -247,14 +286,14 @@
       <p>Our hand-picked favorites with current prices, directions, and links. Tap "Directions" for turn-by-turn from anywhere.</p>
     </div>
 
-    <div class="tabs">
-      <button class="tab active" data-cat="attractions">🎡 Attractions</button>
-      <button class="tab" data-cat="dining">🍽️ Dining</button>
-      <button class="tab" data-cat="outdoors">⛰️ Outdoors &amp; Nearby</button>
+    <div class="tabs" role="tablist" aria-label="Local guide categories">
+      <button class="tab active" id="tab-attractions" role="tab" aria-selected="true" aria-controls="attractions" data-cat="attractions">🎡 Attractions</button>
+      <button class="tab" id="tab-dining" role="tab" aria-selected="false" aria-controls="dining" data-cat="dining">🍽️ Dining</button>
+      <button class="tab" id="tab-outdoors" role="tab" aria-selected="false" aria-controls="outdoors" data-cat="outdoors">⛰️ Outdoors &amp; Nearby</button>
     </div>
 
     <!-- ATTRACTIONS -->
-    <div class="cat active" id="attractions">
+    <div class="cat active" id="attractions" role="tabpanel" aria-labelledby="tab-attractions" tabindex="0">
       <h3 class="catname">Theme Parks &amp; Family Fun</h3>
       <div class="cards">
 
@@ -445,7 +484,7 @@
     </div>
 
     <!-- DINING -->
-    <div class="cat" id="dining">
+    <div class="cat" id="dining" role="tabpanel" aria-labelledby="tab-dining" tabindex="0">
       <h3 class="catname">★ Our Favorite</h3>
       <div class="cards">
 
@@ -563,7 +602,7 @@
     </div>
 
     <!-- OUTDOORS -->
-    <div class="cat" id="outdoors">
+    <div class="cat" id="outdoors" role="tabpanel" aria-labelledby="tab-outdoors" tabindex="0">
       <h3 class="catname">Great Smoky Mountains National Park</h3>
       <div class="cards">
 
@@ -666,38 +705,79 @@
   </div>
 </section>
 
+</main>
+
 <footer>
   <a href="#top" class="brand" style="font-size:1.3rem;color:#fff">The Smoky <span style="color:var(--gold-lt)">Nest</span></a>
-  <p>Pigeon Forge, Tennessee &nbsp;·&nbsp; <a href="#book">Book Direct</a> &nbsp;·&nbsp; <a href="mailto:josh@efminc.org">josh@efminc.org</a></p>
+  <p>Pigeon Forge, Tennessee &nbsp;·&nbsp; <a href="#book">Book Direct</a></p>
   <p class="disc">Prices and hours are approximate and change seasonally — please confirm on each attraction's official website before you go. The Smoky Nest is an independent rental and is not affiliated with the attractions listed in this guide.</p>
 </footer>
 
 <script>
-  // Mobile nav close
-  function closeNav(){document.getElementById('nl').classList.remove('open');}
+  // Mobile nav toggle / close (keeps aria-expanded in sync)
+  function toggleNav(btn){
+    var open=document.getElementById('nl').classList.toggle('open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+  }
+  function closeNav(){
+    document.getElementById('nl').classList.remove('open');
+    var b=document.querySelector('.menubtn');
+    if(b) b.setAttribute('aria-expanded','false');
+  }
 
-  // Guide tabs
-  document.querySelectorAll('.tab').forEach(function(t){
-    t.addEventListener('click',function(){
-      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-      document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));
-      t.classList.add('active');
-      document.getElementById(t.dataset.cat).classList.add('active');
+  // Guide tabs (ARIA tab pattern)
+  var tabEls=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function selectTab(t){
+    tabEls.forEach(function(x){ x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active'); t.setAttribute('aria-selected','true');
+    document.getElementById(t.dataset.cat).classList.add('active');
+  }
+  tabEls.forEach(function(t,i){
+    t.addEventListener('click',function(){ selectTab(t); });
+    // Left/Right arrow navigation between tabs
+    t.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight') n=tabEls[(i+1)%tabEls.length];
+      else if(e.key==='ArrowLeft') n=tabEls[(i-1+tabEls.length)%tabEls.length];
+      if(n){ e.preventDefault(); selectTab(n); n.focus(); }
     });
   });
 
-  // Inquiry form -> opens email to host
+  // Inquiry form -> sends to private Make.com webhook (which emails + texts the host)
+  var WEBHOOK_URL="https://hook.us2.make.com/lcbi7ac76omate5p8ruedp4691cgbrnj";
   function sendInquiry(e){
     e.preventDefault();
-    var name=document.getElementById('f_name').value;
-    var email=document.getElementById('f_email').value;
-    var guests=document.getElementById('f_guests').value;
+    var form=e.target;
+    var btn=form.querySelector('button[type="submit"]');
+    var status=document.getElementById('formStatus');
     var ci=document.getElementById('f_in').value||'(not set)';
     var co=document.getElementById('f_out').value||'(not set)';
-    var msg=document.getElementById('f_msg').value;
-    var subject='Booking Request — The Smoky Nest';
-    var body='Name: '+name+'\nEmail: '+email+'\nGuests: '+guests+'\nCheck-in: '+ci+'\nCheck-out: '+co+'\n\nMessage:\n'+msg;
-    window.location.href='mailto:josh@efminc.org?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    var data=new URLSearchParams();
+    data.append('name', document.getElementById('f_name').value);
+    data.append('email', document.getElementById('f_email').value);
+    data.append('guests', document.getElementById('f_guests').value);
+    data.append('checkin', ci);
+    data.append('checkout', co);
+    data.append('message', document.getElementById('f_msg').value);
+    data.append('source', 'The Smoky Nest website');
+    var orig=btn.textContent;
+    btn.disabled=true; btn.textContent='Sending…';
+    status.style.color=''; status.textContent='';
+    fetch(WEBHOOK_URL, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:data.toString()
+    }).then(function(){
+      form.reset();
+      btn.style.display='none';
+      status.style.color='#2f5d3f';
+      status.textContent='✅ Thank you! Your request has been sent — we’ll get back to you shortly.';
+    }).catch(function(){
+      btn.disabled=false; btn.textContent=orig;
+      status.style.color='#b00020';
+      status.textContent='Sorry, something went wrong. Please try again, or message us on Airbnb.';
+    });
     return false;
   }
 </script>
